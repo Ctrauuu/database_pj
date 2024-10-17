@@ -1,1 +1,1 @@
-this is dababase project for final
+this is a dababase project for final
