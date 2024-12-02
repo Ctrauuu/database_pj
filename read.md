@@ -1,1 +1,1 @@
-this is a dababase project for final
+数据库期末大作业demo
