@@ -12,4 +12,6 @@ public interface PersonService {
     int addNewPerson(PersonDTO personDTO);
 
     PersonDTO updatePersonById(int personId, String name, String email);
+
+    Person authenticateUser(String name, String email);
 }

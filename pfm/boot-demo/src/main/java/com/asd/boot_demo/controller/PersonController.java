@@ -18,15 +18,16 @@ public class PersonController {
         return Response.newSuccess(personService.getPersonById(person_id));
     }
 
+
     @PostMapping("/person")
     public Response<Integer> addNewPerson(@RequestBody PersonDTO personDTO){
         return Response.newSuccess(personService.addNewPerson(personDTO));
     }
-@DeleteMapping("/person/{person_id}")
+    @DeleteMapping("/person/{person_id}")
     public void deletePersonById(@PathVariable int person_id){
         personService.deletePersonById(person_id);
     }
-@PutMapping("/person/{person_id}")
+    @PutMapping("/person/{person_id}")
     public Response<PersonDTO> updatePersonById(@PathVariable int person_id,@RequestParam(required = false) String name,
                                                 @RequestParam(required = false) String email){
         return Response.newSuccess(personService.updatePersonById(person_id,name,email));

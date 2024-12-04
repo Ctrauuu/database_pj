@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+<h1>登录</h1>
+<form id="loginForm" method="POST">
+    <input type="text" id="name" placeholder="姓名" required><br>
+    <input type="email" id="email" placeholder="邮箱" required><br>
+    <button type="submit">登录</button>
+</form>
+
+<div id="errorMessage" style="color: red;"></div>
+<div id="welcomeMessage" style="color: green;"></div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `name=${name}&email=${email}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.personId) {
+                    // 登录成功，显示欢迎信息
+                    document.getElementById("welcomeMessage").textContent = "欢迎，" + data.name;
+                } else {
+                    // 登录失败，显示错误信息
+                    document.getElementById("errorMessage").textContent = "用户名或邮箱错误";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("errorMessage").textContent = "登录失败，请稍后再试。";
+            });
+    });
+</script>
+</body>
+</html>

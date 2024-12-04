@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService {
 
     @Autowired
     private PersonRepository personRepository;
@@ -22,8 +22,8 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public void deletePersonById(int personId) {
 
-            personRepository.findById(personId).orElseThrow(() -> new IllegalArgumentException("id:" + personId + "doesn't exist!"));
-            personRepository.deleteById(personId);
+        personRepository.findById(personId).orElseThrow(() -> new IllegalArgumentException("id:" + personId + "doesn't exist!"));
+        personRepository.deleteById(personId);
 
     }
 
@@ -33,9 +33,9 @@ public class PersonServiceImpl implements PersonService{
         return PersonConverter.convertPerson(person);
     }
 
-    public int addNewPerson(PersonDTO personDTO){
+    public int addNewPerson(PersonDTO personDTO) {
         List<Person> personList = personRepository.findByEmail(personDTO.getEmail());
-        if(!CollectionUtils.isEmpty(personList)){
+        if (!CollectionUtils.isEmpty(personList)) {
             throw new IllegalStateException("email" + personDTO.getEmail() + "has been taken");
         }
         Person person = personRepository.save(PersonConverter.convertPerson(personDTO));
@@ -45,12 +45,12 @@ public class PersonServiceImpl implements PersonService{
     @Override
     @Transactional
     public PersonDTO updatePersonById(int personId, String name, String email) {
-        Person personInDB = personRepository.findById(personId).orElseThrow(() ->new IllegalArgumentException("id" + personId + "doesn't exist!"));
+        Person personInDB = personRepository.findById(personId).orElseThrow(() -> new IllegalArgumentException("id" + personId + "doesn't exist!"));
 
-        if(StringUtils.hasLength(name) && !personInDB.getName().equals(name)){
+        if (StringUtils.hasLength(name) && !personInDB.getName().equals(name)) {
             personInDB.setName(name);
         }
-        if(StringUtils.hasLength(email) && !personInDB.getEmail().equals(email)){
+        if (StringUtils.hasLength(email) && !personInDB.getEmail().equals(email)) {
             personInDB.setEmail(email);
         }
         Person person = personRepository.save(personInDB);
@@ -58,5 +58,8 @@ public class PersonServiceImpl implements PersonService{
         return PersonConverter.convertPerson(person);
     }
 
-
+    @Override
+    public Person authenticateUser(String name, String email) {
+        return personRepository.findByNameAndEmail(name, email).orElse(null); // 如果没有找到用户，返回null
+    }
 }
