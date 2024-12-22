@@ -7,6 +7,7 @@ public class PersonDTO {
     private String email;
     private int age;
 
+
     public String getEmail() {
         return email;
     }

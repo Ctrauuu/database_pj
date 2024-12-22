@@ -13,5 +13,6 @@ public interface PersonService {
 
     PersonDTO updatePersonById(int personId, String name, String email);
 
-    Person authenticateUser(String name, String email);
+    Person authenticateUser(String name, String password);
+
 }

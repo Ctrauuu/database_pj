@@ -59,7 +59,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person authenticateUser(String name, String email) {
-        return personRepository.findByNameAndEmail(name, email).orElse(null); // 如果没有找到用户，返回null
+    public Person authenticateUser(String name, String password) {
+        // 查询数据库中的用户信息
+        return personRepository.findByNameAndPassword(name, password).orElse(null);
     }
+
 }

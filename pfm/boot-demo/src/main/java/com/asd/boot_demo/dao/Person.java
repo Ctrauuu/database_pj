@@ -34,6 +34,17 @@ public class Person {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "email")
     private String email;
 
